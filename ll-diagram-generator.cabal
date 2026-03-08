@@ -1,0 +1,21 @@
+cabal-version:      3.0
+name:               ll-diagram-generator
+version:            0.1.0.0
+synopsis:           SVG diagram generator for Rubik's Cube Last Layer cases
+license:            MIT
+license-file:       LICENSE
+author:             Alena Weiley
+maintainer:         alena@weiley.org
+build-type:         Simple
+extra-doc-files:    README.md
+
+common warnings
+    ghc-options: -Wall
+
+executable ll-diagram-generator
+    import:             warnings
+    main-is:            Main.hs
+    other-modules:      Simulation, Parsing, RenderSvg
+    build-depends:      base ^>=4.19.2.0
+    hs-source-dirs:     app
+    default-language:   Haskell2010
