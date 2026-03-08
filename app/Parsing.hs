@@ -79,9 +79,9 @@ caseForAlg = aux startingFaceMap
       let
         (mod_, rest) = parseModifier cs
         move = fromMaybe identity $ lookup c fm
-        move' = case mod_ of Two ->   twice move
+        move' = case mod_ of Two   -> twice move
                              Prime -> inverse move
-                             None ->  move
+                             None  -> move
       in compose move' $ aux fm rest
 
     -- Skip irrelevant characters
