@@ -15,6 +15,8 @@ data Config = Config
 data XmlTag = Standard    String [(String, String)] [XmlTag]
             | SelfClosing String [(String, String)]
 
+-- XML primitives
+
 instance Show XmlTag where
   show = showIndented 0
 
@@ -36,6 +38,8 @@ showAttrs [] = ""
 showAttrs attrs = " " ++ unwords (map showAttr attrs)
   where showAttr (k, v) = k ++ "=\"" ++ v ++ "\""
 
+-- Config-dependent geometry
+
 gap :: Config -> Int
 gap cfg = cfgSize cfg `div` 42
 
@@ -56,6 +60,8 @@ drawSticker width height x y fill =
     , ("y",            show y)
     , ("fill",         fill)
     ]
+
+-- SVG helpers
 
 -- x or y pixel offset for sticker at grid index 0/1/2
 stickerPos :: Config -> Int -> Int
@@ -92,6 +98,8 @@ colourAt cfg perm pos =
      else if i <= 31 then cfgRight cfg
      else if i <= 39 then cfgBack  cfg
      else                 cfgDown  cfg
+
+-- SVG renderer
 
 renderSvg :: Config -> Perm -> String
 renderSvg cfg perm = show $
