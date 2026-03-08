@@ -73,8 +73,8 @@ drawSticker width height x y fill =
 stickerPos :: Config -> Int -> Int
 stickerPos cfg index = 2 * gap cfg + stickerDepth cfg + index * (stickerWidth cfg + gap cfg)
 
-drawTopSticker :: Config -> Int -> Int -> String -> XmlTag
-drawTopSticker cfg xi yi =
+drawUpSticker :: Config -> Int -> Int -> String -> XmlTag
+drawUpSticker cfg xi yi =
   drawSticker (stickerWidth cfg) (stickerWidth cfg) (stickerPos cfg xi) (stickerPos cfg yi)
 
 drawBackSticker :: Config -> Int -> String -> XmlTag
@@ -116,20 +116,20 @@ renderSvg cfg perm = show $
     , ("width",  show (cfgSize cfg))
     , ("height", show (cfgSize cfg))
     ]
-    (topStickers ++ backStickers ++ rightStickers ++ frontStickers ++ leftStickers)
+    (upStickers ++ backStickers ++ rightStickers ++ frontStickers ++ leftStickers)
   where
     c = colourAt cfg perm
 
-    topStickers =
-      [ drawTopSticker cfg 0 0 (c 0)       -- UBL
-      , drawTopSticker cfg 1 0 (c 1)       -- UB
-      , drawTopSticker cfg 2 0 (c 2)       -- UBR
-      , drawTopSticker cfg 0 1 (c 7)       -- UL
-      , drawTopSticker cfg 1 1 (cfgUp cfg) -- centre
-      , drawTopSticker cfg 2 1 (c 3)       -- UR
-      , drawTopSticker cfg 0 2 (c 6)       -- UFL
-      , drawTopSticker cfg 1 2 (c 5)       -- UF
-      , drawTopSticker cfg 2 2 (c 4)       -- UFR
+    upStickers =
+      [ drawUpSticker cfg 0 0 (c 0)       -- UBL
+      , drawUpSticker cfg 1 0 (c 1)       -- UB
+      , drawUpSticker cfg 2 0 (c 2)       -- UBR
+      , drawUpSticker cfg 0 1 (c 7)       -- UL
+      , drawUpSticker cfg 1 1 (cfgUp cfg) -- centre
+      , drawUpSticker cfg 2 1 (c 3)       -- UR
+      , drawUpSticker cfg 0 2 (c 6)       -- UFL
+      , drawUpSticker cfg 1 2 (c 5)       -- UF
+      , drawUpSticker cfg 2 2 (c 4)       -- UFR
       ]
 
     backStickers =
