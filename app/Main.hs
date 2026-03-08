@@ -3,7 +3,7 @@ module Main where
 import System.Environment (getArgs, getProgName)
 import System.Exit (exitFailure)
 import Parsing (caseForAlg)
-import RenderSvg (Config(..), renderSvg)
+import Rendering (Config(..), renderSvg)
 
 defaultConfig :: Config
 defaultConfig = Config

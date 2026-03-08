@@ -15,7 +15,7 @@ common warnings
 executable ll-diagram-generator
     import:             warnings
     main-is:            Main.hs
-    other-modules:      Simulation, Parsing, RenderSvg
+    other-modules:      Simulation, Parsing, Rendering
     build-depends:      base ^>=4.19.2.0
     hs-source-dirs:     app
     default-language:   Haskell2010

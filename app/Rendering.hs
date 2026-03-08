@@ -1,4 +1,4 @@
-module RenderSvg where
+module Rendering where
 
 import Simulation (Perm)
 
