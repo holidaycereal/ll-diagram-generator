@@ -10,12 +10,12 @@ import Rendering (Config(..), renderSvg)
 defaultConfig :: Config
 defaultConfig = Config
   { cfgScale = 1
-  , cfgUp    = "yellow"
-  , cfgFront = "royalblue"
-  , cfgBack  = "limegreen"
-  , cfgLeft  = "orange"
-  , cfgRight = "crimson"
-  , cfgDown  = "white"
+  , cfgUp    = "#ffff00"
+  , cfgFront = "#1447e6"
+  , cfgBack  = "#31c950"
+  , cfgLeft  = "#ff8c00"
+  , cfgRight = "#c11007"
+  , cfgDown  = "#ffffff"
   }
 
 parseArgs :: [String] -> IO (Config, String)
