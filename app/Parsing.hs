@@ -44,6 +44,7 @@ expandSlice c Two   = expandSlice c None ++ expandSlice c None
 expandSlice c Prime = expandSlice c None ++ expandSlice c Two
 
 parseModifier :: String -> (Modifier, String)
+parseModifier ('2':'\'':cs)           = (Two,   cs)
 parseModifier ('2':cs)                = (Two,   cs)
 parseModifier (c:cs) | c `elem` "\'3" = (Prime, cs)
 parseModifier cs                      = (None,  cs)
