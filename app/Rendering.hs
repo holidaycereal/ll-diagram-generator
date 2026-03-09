@@ -3,7 +3,7 @@ module Rendering where
 import Simulation (Perm)
 
 data Config = Config
-  { cfgSize  :: Int    -- SVG canvas size (px)
+  { cfgScale :: Int    -- SVG canvas scale factor
   , cfgUp    :: String -- U face colour
   , cfgFront :: String -- F face colour
   , cfgBack  :: String -- B face colour
@@ -40,9 +40,15 @@ showAttrs [] = ""
 showAttrs attrs = " " ++ unwords (map showAttr attrs)
   where showAttr (k, v) = k ++ "=\"" ++ v ++ "\""
 
--- -------------------------
--- Config-dependent geometry
--- -------------------------
+-- --------
+-- Geometry
+-- --------
+
+baseSize :: Int
+baseSize = 210
+
+cfgSize :: Config -> Int
+cfgSize cfg = baseSize * cfgScale cfg
 
 gap :: Config -> Int
 gap cfg = cfgSize cfg `div` 42

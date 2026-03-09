@@ -7,7 +7,7 @@ import Rendering (Config(..), renderSvg)
 
 defaultConfig :: Config
 defaultConfig = Config
-  { cfgSize  = 210
+  { cfgScale = 1
   , cfgUp    = "yellow"
   , cfgFront = "royalblue"
   , cfgBack  = "limegreen"
@@ -21,9 +21,9 @@ parseArgs rawArgs = go rawArgs defaultConfig Nothing
   where
     go [] cfg (Just alg) = return (cfg, alg)
     go [] _   Nothing    = usage >> exitFailure
-    -- SVG size
-    go ("--size":v:rest) cfg alg = go rest (cfg { cfgSize = read v }) alg
-    go ("-s"    :v:rest) cfg alg = go rest (cfg { cfgSize = read v }) alg
+    -- SVG scale factor
+    go ("--scale":v:rest) cfg alg = go rest (cfg { cfgScale = read v }) alg
+    go ("-s"     :v:rest) cfg alg = go rest (cfg { cfgScale = read v }) alg
     -- Face colours
     go ("-u":v:rest) cfg alg = go rest (cfg { cfgUp    = v }) alg
     go ("-f":v:rest) cfg alg = go rest (cfg { cfgFront = v }) alg
@@ -44,13 +44,13 @@ usage = do
     [ " Usage: " ++ prog ++ " [OPTIONS] \"<algorithm>\""
     , ""
     , " Options:"
-    , "   -s, --size N   SVG canvas size in pixels (default: 210)"
-    , "   -u COLOUR      U face colour (default: yellow)"
-    , "   -f COLOUR      F face colour (default: royalblue)"
-    , "   -b COLOUR      B face colour (default: limegreen)"
-    , "   -l COLOUR      L face colour (default: orange)"
-    , "   -r COLOUR      R face colour (default: crimson)"
-    , "   -d COLOUR      D face colour (default: white)"
+    , "   -s, --scale N  SVG canvas scale factor (default: " ++ show (cfgScale defaultConfig) ++ ")"
+    , "   -u COLOUR      U face colour (default: " ++ cfgUp    defaultConfig ++ ")"
+    , "   -f COLOUR      F face colour (default: " ++ cfgFront defaultConfig ++ ")"
+    , "   -b COLOUR      B face colour (default: " ++ cfgBack  defaultConfig ++ ")"
+    , "   -l COLOUR      L face colour (default: " ++ cfgLeft  defaultConfig ++ ")"
+    , "   -r COLOUR      R face colour (default: " ++ cfgRight defaultConfig ++ ")"
+    , "   -d COLOUR      D face colour (default: " ++ cfgDown  defaultConfig ++ ")"
     , ""
     , " COLOUR may be any SVG colour name or hex value (e.g. 'limegreen', '#ff0000')."
     ]
