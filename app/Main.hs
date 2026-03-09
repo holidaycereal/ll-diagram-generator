@@ -1,7 +1,7 @@
 module Main where
 
 import System.Environment (getArgs, getProgName)
-import System.Exit (exitFailure)
+import System.Exit (exitFailure, exitSuccess)
 import System.IO (hPutStrLn, stderr)
 import Text.Read (readMaybe)
 import Parsing (caseForAlg)
@@ -23,6 +23,8 @@ parseArgs rawArgs = go rawArgs defaultConfig Nothing
   where
     go [] cfg (Just alg) = return (cfg, alg)
     go [] _   Nothing    = usage >> exitFailure
+    -- Help text
+    go (h:_) _ _ | h `elem` ["-h", "--help"] = usage >> exitSuccess
     -- SVG scale factor
     go (s:v:rest) cfg alg | s `elem` ["-s", "--scale"] =
       case (readMaybe v :: Maybe Int) of
@@ -31,12 +33,12 @@ parseArgs rawArgs = go rawArgs defaultConfig Nothing
           exitFailure
         Just i -> go rest (cfg { cfgScale = i }) alg
     -- Face colours
-    go ("-u":v:rest) cfg alg = go rest (cfg { cfgUp    = v }) alg
-    go ("-f":v:rest) cfg alg = go rest (cfg { cfgFront = v }) alg
-    go ("-b":v:rest) cfg alg = go rest (cfg { cfgBack  = v }) alg
-    go ("-l":v:rest) cfg alg = go rest (cfg { cfgLeft  = v }) alg
-    go ("-r":v:rest) cfg alg = go rest (cfg { cfgRight = v }) alg
-    go ("-d":v:rest) cfg alg = go rest (cfg { cfgDown  = v }) alg
+    go (s:v:rest) cfg alg | s `elem` ["-u", "--up"]    = go rest (cfg { cfgUp    = v }) alg
+    go (s:v:rest) cfg alg | s `elem` ["-f", "--front"] = go rest (cfg { cfgFront = v }) alg
+    go (s:v:rest) cfg alg | s `elem` ["-b", "--back"]  = go rest (cfg { cfgBack  = v }) alg
+    go (s:v:rest) cfg alg | s `elem` ["-l", "--left"]  = go rest (cfg { cfgLeft  = v }) alg
+    go (s:v:rest) cfg alg | s `elem` ["-r", "--right"] = go rest (cfg { cfgRight = v }) alg
+    go (s:v:rest) cfg alg | s `elem` ["-d", "--down"]  = go rest (cfg { cfgDown  = v }) alg
     -- Alg string (positional)
     go (a:rest) cfg Nothing  = go rest cfg (Just a)
     -- No arguments expected after alg
@@ -51,13 +53,14 @@ usage = do
     [ "Usage: " ++ prog ++ " [OPTIONS] \"<algorithm>\""
     , ""
     , "Options:"
-    , "  -s, --scale N  SVG canvas scale factor (integer) (default: " ++ show (cfgScale defaultConfig) ++ ")"
-    , "  -u COLOUR      U face colour (default: " ++ cfgUp    defaultConfig ++ ")"
-    , "  -f COLOUR      F face colour (default: " ++ cfgFront defaultConfig ++ ")"
-    , "  -b COLOUR      B face colour (default: " ++ cfgBack  defaultConfig ++ ")"
-    , "  -l COLOUR      L face colour (default: " ++ cfgLeft  defaultConfig ++ ")"
-    , "  -r COLOUR      R face colour (default: " ++ cfgRight defaultConfig ++ ")"
-    , "  -d COLOUR      D face colour (default: " ++ cfgDown  defaultConfig ++ ")"
+    , "  -h, --help            Show this message"
+    , "  -s, --scale N         SVG canvas scale factor (integer, default: " ++ show (cfgScale defaultConfig) ++ ")"
+    , "  -u, --up    COLOUR    U face colour (default: " ++ cfgUp    defaultConfig ++ ")"
+    , "  -f, --front COLOUR    F face colour (default: " ++ cfgFront defaultConfig ++ ")"
+    , "  -b, --back  COLOUR    B face colour (default: " ++ cfgBack  defaultConfig ++ ")"
+    , "  -l, --left  COLOUR    L face colour (default: " ++ cfgLeft  defaultConfig ++ ")"
+    , "  -r, --right COLOUR    R face colour (default: " ++ cfgRight defaultConfig ++ ")"
+    , "  -d, --down  COLOUR    D face colour (default: " ++ cfgDown  defaultConfig ++ ")"
     , ""
     , "COLOUR may be any SVG colour name or hex value (e.g. 'limegreen', '#ff0000')."
     ]
