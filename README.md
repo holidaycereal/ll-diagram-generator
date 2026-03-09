@@ -4,6 +4,7 @@ try:
 ```
 cabal run ll-diagram-generator -- --scale 2 --right magenta "F R U R' U' F'" > test.svg
 ```
+(you might have to do it twice because cabal/ghc likes to write extra stuff to stdout the first time you compile)
 
 run `cabal run ll-diagram-generator -- --help` to see all options
 
