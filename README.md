@@ -18,3 +18,4 @@ run `cabal run ll-diagram-generator -- --help` to see all options
     - notation for mirroring things to the left/back e.g. `back sune`
 - more styling choices perhaps (gap width, outline colour, background...)
 - full cube net mode (might have to change the project name though since that wouldn't be last layer diagrams)
+- tests probably i guess
