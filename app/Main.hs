@@ -2,6 +2,8 @@ module Main where
 
 import System.Environment (getArgs, getProgName)
 import System.Exit (exitFailure)
+import System.IO (hPutStrLn, stderr)
+import Text.Read (readMaybe)
 import Parsing (caseForAlg)
 import Rendering (Config(..), renderSvg)
 
@@ -22,8 +24,12 @@ parseArgs rawArgs = go rawArgs defaultConfig Nothing
     go [] cfg (Just alg) = return (cfg, alg)
     go [] _   Nothing    = usage >> exitFailure
     -- SVG scale factor
-    go ("--scale":v:rest) cfg alg = go rest (cfg { cfgScale = read v }) alg
-    go ("-s"     :v:rest) cfg alg = go rest (cfg { cfgScale = read v }) alg
+    go (s:v:rest) cfg alg | s `elem` ["-s", "--scale"] =
+      case (readMaybe v :: Maybe Int) of
+        Nothing -> do
+          hPutStrLn stderr "Scale factor must be an integer"
+          exitFailure
+        Just i -> go rest (cfg { cfgScale = i }) alg
     -- Face colours
     go ("-u":v:rest) cfg alg = go rest (cfg { cfgUp    = v }) alg
     go ("-f":v:rest) cfg alg = go rest (cfg { cfgFront = v }) alg
@@ -33,8 +39,9 @@ parseArgs rawArgs = go rawArgs defaultConfig Nothing
     go ("-d":v:rest) cfg alg = go rest (cfg { cfgDown  = v }) alg
     -- Alg string (positional)
     go (a:rest) cfg Nothing  = go rest cfg (Just a)
-    go (a:_)    _   (Just _) = do
-      putStrLn $ "Unexpected argument: " ++ a
+    -- No arguments expected after alg
+    go (a:_) _ (Just _) = do
+      hPutStrLn stderr $ "Unexpected argument: " ++ a
       usage >> exitFailure
 
 usage :: IO ()
@@ -44,7 +51,7 @@ usage = do
     [ " Usage: " ++ prog ++ " [OPTIONS] \"<algorithm>\""
     , ""
     , " Options:"
-    , "   -s, --scale N  SVG canvas scale factor (default: " ++ show (cfgScale defaultConfig) ++ ")"
+    , "   -s, --scale N  SVG canvas scale factor (integer) (default: " ++ show (cfgScale defaultConfig) ++ ")"
     , "   -u COLOUR      U face colour (default: " ++ cfgUp    defaultConfig ++ ")"
     , "   -f COLOUR      F face colour (default: " ++ cfgFront defaultConfig ++ ")"
     , "   -b COLOUR      B face colour (default: " ++ cfgBack  defaultConfig ++ ")"
