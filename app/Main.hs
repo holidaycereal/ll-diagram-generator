@@ -48,18 +48,18 @@ usage :: IO ()
 usage = do
   prog <- getProgName
   putStr $ unlines
-    [ " Usage: " ++ prog ++ " [OPTIONS] \"<algorithm>\""
+    [ "Usage: " ++ prog ++ " [OPTIONS] \"<algorithm>\""
     , ""
-    , " Options:"
-    , "   -s, --scale N  SVG canvas scale factor (integer) (default: " ++ show (cfgScale defaultConfig) ++ ")"
-    , "   -u COLOUR      U face colour (default: " ++ cfgUp    defaultConfig ++ ")"
-    , "   -f COLOUR      F face colour (default: " ++ cfgFront defaultConfig ++ ")"
-    , "   -b COLOUR      B face colour (default: " ++ cfgBack  defaultConfig ++ ")"
-    , "   -l COLOUR      L face colour (default: " ++ cfgLeft  defaultConfig ++ ")"
-    , "   -r COLOUR      R face colour (default: " ++ cfgRight defaultConfig ++ ")"
-    , "   -d COLOUR      D face colour (default: " ++ cfgDown  defaultConfig ++ ")"
+    , "Options:"
+    , "  -s, --scale N  SVG canvas scale factor (integer) (default: " ++ show (cfgScale defaultConfig) ++ ")"
+    , "  -u COLOUR      U face colour (default: " ++ cfgUp    defaultConfig ++ ")"
+    , "  -f COLOUR      F face colour (default: " ++ cfgFront defaultConfig ++ ")"
+    , "  -b COLOUR      B face colour (default: " ++ cfgBack  defaultConfig ++ ")"
+    , "  -l COLOUR      L face colour (default: " ++ cfgLeft  defaultConfig ++ ")"
+    , "  -r COLOUR      R face colour (default: " ++ cfgRight defaultConfig ++ ")"
+    , "  -d COLOUR      D face colour (default: " ++ cfgDown  defaultConfig ++ ")"
     , ""
-    , " COLOUR may be any SVG colour name or hex value (e.g. 'limegreen', '#ff0000')."
+    , "COLOUR may be any SVG colour name or hex value (e.g. 'limegreen', '#ff0000')."
     ]
 
 main :: IO ()
