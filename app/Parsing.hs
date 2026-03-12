@@ -1,6 +1,7 @@
 module Parsing where
 
-import Simulation
+import Simulation (Perm, identity, compose, twice, inverse,
+  moveU, moveD, moveF, moveB, moveR, moveL)
 import Data.Char (toLower)
 import Data.Maybe (fromMaybe)
 
