@@ -117,7 +117,6 @@ renderSvg cfg perm = show $
     stickers
   where
     c = colourAt cfg perm
-
     stickers =
       -- U face stickers
       [ drawUpSticker cfg 0 0 (c 0)       -- UBL
