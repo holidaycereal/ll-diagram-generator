@@ -6,6 +6,7 @@ import Data.Char (toLower)
 import Data.Maybe (fromMaybe)
 
 type FaceMap = [(Char, Perm)]
+
 data Modifier = None | Two | Prime
 
 startingFaceMap :: FaceMap
