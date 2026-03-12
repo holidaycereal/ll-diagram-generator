@@ -119,31 +119,27 @@ renderSvg cfg perm = show $
     c = colourAt cfg perm
     stickers =
       -- U face stickers
-      [ drawUpSticker cfg 0 0 (c 0)       -- UBL
-      , drawUpSticker cfg 1 0 (c 1)       -- UB
-      , drawUpSticker cfg 2 0 (c 2)       -- UBR
-      , drawUpSticker cfg 0 1 (c 7)       -- UL
+      [ drawUpSticker cfg 0 0 (c 0) -- UBL
+      , drawUpSticker cfg 1 0 (c 1) -- UB
+      , drawUpSticker cfg 2 0 (c 2) -- UBR
+      , drawUpSticker cfg 0 1 (c 7) -- UL
       , drawUpSticker cfg 1 1 (cfgUp cfg) -- centre
-      , drawUpSticker cfg 2 1 (c 3)       -- UR
-      , drawUpSticker cfg 0 2 (c 6)       -- UFL
-      , drawUpSticker cfg 1 2 (c 5)       -- UF
-      , drawUpSticker cfg 2 2 (c 4)       -- UFR
-
+      , drawUpSticker cfg 2 1 (c 3) -- UR
+      , drawUpSticker cfg 0 2 (c 6) -- UFL
+      , drawUpSticker cfg 1 2 (c 5) -- UF
+      , drawUpSticker cfg 2 2 (c 4) -- UFR
       -- B face stickers
       , drawBackSticker cfg 0 (c 34)
       , drawBackSticker cfg 1 (c 33)
       , drawBackSticker cfg 2 (c 32)
-
       -- R face stickers
       , drawRightSticker cfg 0 (c 26)
       , drawRightSticker cfg 1 (c 25)
       , drawRightSticker cfg 2 (c 24)
-
       -- F face stickers
       , drawFrontSticker cfg 0 (c 16)
       , drawFrontSticker cfg 1 (c 17)
       , drawFrontSticker cfg 2 (c 18)
-
       -- L face stickers
       , drawLeftSticker cfg 0 (c 8)
       , drawLeftSticker cfg 1 (c 9)
