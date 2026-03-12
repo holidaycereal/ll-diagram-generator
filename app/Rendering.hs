@@ -10,7 +10,7 @@ data Config = Config
   , cfgLeft  :: String -- L face colour
   , cfgRight :: String -- R face colour
   , cfgDown  :: String -- D face colour
-  } deriving (Show)
+  }
 
 data XmlTag = Standard    String [(String, String)] [XmlTag]
             | SelfClosing String [(String, String)]
