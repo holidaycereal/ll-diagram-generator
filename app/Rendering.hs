@@ -114,11 +114,12 @@ renderSvg cfg perm = show $
     , ("width",  show (cfgSize cfg))
     , ("height", show (cfgSize cfg))
     ]
-    (upStickers ++ backStickers ++ rightStickers ++ frontStickers ++ leftStickers)
+    stickers
   where
     c = colourAt cfg perm
 
-    upStickers =
+    stickers =
+      -- U face stickers
       [ drawUpSticker cfg 0 0 (c 0)       -- UBL
       , drawUpSticker cfg 1 0 (c 1)       -- UB
       , drawUpSticker cfg 2 0 (c 2)       -- UBR
@@ -128,28 +129,24 @@ renderSvg cfg perm = show $
       , drawUpSticker cfg 0 2 (c 6)       -- UFL
       , drawUpSticker cfg 1 2 (c 5)       -- UF
       , drawUpSticker cfg 2 2 (c 4)       -- UFR
-      ]
 
-    backStickers =
-      [ drawBackSticker cfg 0 (c 34)
+      -- B face stickers
+      , drawBackSticker cfg 0 (c 34)
       , drawBackSticker cfg 1 (c 33)
       , drawBackSticker cfg 2 (c 32)
-      ]
 
-    rightStickers =
-      [ drawRightSticker cfg 0 (c 26)
+      -- R face stickers
+      , drawRightSticker cfg 0 (c 26)
       , drawRightSticker cfg 1 (c 25)
       , drawRightSticker cfg 2 (c 24)
-      ]
 
-    frontStickers =
-      [ drawFrontSticker cfg 0 (c 16)
+      -- F face stickers
+      , drawFrontSticker cfg 0 (c 16)
       , drawFrontSticker cfg 1 (c 17)
       , drawFrontSticker cfg 2 (c 18)
-      ]
 
-    leftStickers =
-      [ drawLeftSticker cfg 0 (c 8)
+      -- L face stickers
+      , drawLeftSticker cfg 0 (c 8)
       , drawLeftSticker cfg 1 (c 9)
       , drawLeftSticker cfg 2 (c 10)
       ]
